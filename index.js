@@ -2,9 +2,16 @@ var express = require('express');
 var app = express();
 
 const { exec } = require("child_process");
-const ffmpeg = require("fluent-ffmpeg");
+var ffmpeg = require('fluent-ffmpeg');
+var command = ffmpeg();
 
-const Recorder = require('node-rtsp-recorder').Recorder
+
+ffmpeg('rtsp://username:password@camera_ip_address:554/live.sdp')
+    .format('image2')
+    .outputOptions(['-r 1/5','-updatefirst 1'])
+    .saveToFile('img.jpg');
+
+//const Recorder = require('node-rtsp-recorder').Recorder
 
 // var rec = new Recorder({
 //     url: 'rtsp://watch:ZimaLeto2022@93.188.122.139:554/cam/realmonitor?channel=1&subtype=0',
@@ -22,18 +29,16 @@ const Recorder = require('node-rtsp-recorder').Recorder
 
 setInterval(() => {
     console.log(121212)
-    var ffmpeg = require('fluent-ffmpeg');
-    var command = ffmpeg();
 
-    try {
-        ffmpeg('rtsp://watch:ZimaLeto2022@93.188.122.139:554/cam/realmonitor?channel=1&subtype=0')
-            .format('image2')
-            //.outputOptions(['-r 1/5', '-updatefirst 1'])
-            .outputOptions('-updatefirst 1')
-            .saveToFile('./images/img.jpg');
-    } catch (error) {
-        console.log(error)
-    }
+    // try {
+    //     ffmpeg('rtsp://watch:ZimaLeto2022@93.188.122.139:554/cam/realmonitor?channel=1&subtype=0')
+    //         .format('image2')
+    //         //.outputOptions(['-r 1/5', '-updatefirst 1'])
+    //         .outputOptions('-updatefirst 1')
+    //         .saveToFile('./images/img.jpg');
+    // } catch (error) {
+    //     console.log(error)
+    //}
 
         // exec(`ffmpeg -y -i rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4 -vframes 1 /Users/yuriy/recognition/recognition/images/${Date.now()}.jpg`, (error, stdout, stderr) => {
     //     if (error) {
