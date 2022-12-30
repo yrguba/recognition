@@ -4,7 +4,8 @@ var app = express();
 const { exec } = require("child_process");
 
 setInterval(() => {
-    exec(`ffmpeg -y -i rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4 -vframes 1 images/${Date.now()}.jpg`, (error, stdout, stderr) => {
+    console.log(1111)
+    exec(`ffmpeg -y -i rtsp://watch:ZimaLeto2022@93.188.122.139:554/cam/realmonitor?channel=1&subtype=0 -vframes 1 ./images/${Date.now()}.jpg`, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -15,7 +16,7 @@ setInterval(() => {
         }
         console.log(`stdout: ${stdout}`);
     });
-}, 1000);
+}, 5000);
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
